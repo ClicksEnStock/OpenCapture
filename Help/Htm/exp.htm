@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <title>OpenCapture Object - Expressions</title>
+  <meta http-equiv="content-type"
+ content="text/html; charset=ISO-8859-1">
+</head>
+<body bgcolor="#FFFFFF">
+<p align="center"><font size="+3">OpenCapture Object - Expressions</font></p>
+<p><b>Last Error<br>
+  </b></p>
+<p>Returns the last error encountered by the capture device. Once read the error is erased and can not be retrieved anymore.<br>
+Note that if several errors happened before this string is read, only the last error is provided.</p>
+<p><font size="+1"><u><b>Track color menu</b></u></font></p>
+<p><b>Get Color Position X from Id<br></b></p>
+<p>Retrieves the position X from a color object defined by the <b>[Set Tracking Color range in HSV]</b> action.<br>
+If no color object is defined, returns an invalid value (-1000).</p>
+This action takes 1 argument:
+<ul>
+<li>Color Id: choose which color you want to get its position. Set 1 for first color or 2 for the second one.</li>
+</ul>
+<p><b>Get Color Position Y from Id<br></b></p>
+<p>Retrieves the position Y from a color object defined by the <b>[Set Tracking Color range in HSV]</b> action.<br>
+If no color object is defined, returns an invalid value (-1000).</p>
+This action takes 1 argument:
+<ul>
+<li>Color Id: choose which color you want to get its position. Set 1 for first color or 2 for the second one.</li>
+</ul>
+<p><b>Get HSV color from positions<br></b></p>
+<p>Retrieves a color in HSV format at a defined position on the current frame.<br>
+This action takes 3 arguments:
+<ul>
+<li>Position X: set the position X of the color to retrieve.</li>
+<li>Position Y: set the position Y of the color to retrieve.</li>
+<li>Color Index: color index in the HSV format (Hue=1, Saturation=2, Value=3).</li>
+</ul>
+Note that the positions are relative to the camera object position (upper left corner) and not to the position in the scene.
+</p>
+<p><b>Get RGB color from positions<br></b></p>
+<p>Retrieves a color in RGB format at a defined position on the current frame.<br>
+This action takes 3 arguments:
+<ul>
+<li>Position X: set the position X of the color to retrieve.</li>
+<li>Position Y: set the position Y of the color to retrieve.</li>
+<li>Color Index: color index in the RGB format (Red=1, Green=2, Blue=3).</li>
+</ul>
+Note that the positions are relative to the camera object position (upper left corner) and not to the position in the scene.</p>
+<p><b>Get Track Color Object Width<br></b></p>
+<p>Retrieves the rectangle width of the color object currently tracked.<br>
+This action takes 1 argument:
+<ul>
+<li>Color Id: choose which color from tracked colors you want to get its width. Set 1 for first color or 2 for the second one.</li>
+</ul></p>
+<p><b>Get Track Color Object Height<br></b></p>
+<p>Retrieves the rectangle heigth of the color object currently tracked.<br>
+This action takes 1 argument:
+<ul>
+<li>Color Id: choose which color from tracked colors you want to get its height. Set 1 for first color or 2 for the second one.</li>
+</ul></p>
+<p><font size="+1"><u><b>Track object menu</b></u></font></p>
+<p><b>Get Object Position X <br></b></p>
+<p>Retrieves the position X from the object desribed by the classifier file.<br>
+If no classifier file was provided, returns an invalid value (-1000).</p>
+<p><b>Get Object Position Y <br></b></p>
+<p>Retrieves the position Y from the object desribed by the classifier file.<br>
+If no classifier file was provided, returns an invalid value (-1000).</p>
+<p><b>Get Object Width<br></b></p>
+<p>Retrieves the width from the object found.<br>
+If no classifier file was provided, returns an invalid value (-1000).</p>
+<p><b>Get Object Height<br></b></p>
+<p>Retrieves the height from the object found.<br>
+If no classifier file was provided, returns an invalid value (-1000).</p>
+<p><font size="+1"><u><b>Track feature menu</b></u></font></p>
+<p><b>Get number of good matches<br></b></p>
+<p>Retrieves the number of keypoints found which matches between feature object and camera image.<br></p>
+<p><b>Get Corner Position X <br></b></p>
+<p>Retrieves the position X from the object desribed by the classifier file.<br>
+If no classifier file was provided, returns an invalid value (-1000).</p>
+<p><font size="+1"><u><b>Track barcode menu</b></u></font></p>
+<p><b>Barcode Text<br></b></p>
+<p>Retrieves the string corresponding to the last barcode found.</p>
+</body>
+</html>

@@ -1,0 +1,26 @@
+Microsoft HTML Help Compiler 4.74.8702
+
+Compiling c:\Creation\ClickteamDevelop\windows-edif-master-F25_trunk\Extensions\OpenCapture\Help\OpenCapture.chm
+
+htm\index.htm
+htm\desc.htm
+htm\prop.htm
+htm\act.htm
+htm\cnd.htm
+htm\exp.htm
+ext_cnt.hhc
+ext_index.hhk
+Htm\errors.htm
+Htm\license.htm
+htm\Images\Icon.png
+htm\Images\hsvColorCylinder.png
+
+Compile time: 0 minutes, 0 seconds
+10	Topics
+37	Local links
+0	Internet links
+2	Graphics
+
+
+Created c:\Creation\ClickteamDevelop\windows-edif-master-F25_trunk\Extensions\OpenCapture\Help\OpenCapture.chm, 100,335 bytes
+Compression decreased file by 2,152 bytes.

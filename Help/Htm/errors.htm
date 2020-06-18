@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <title>OpenCapture Object - Error Codes</title>
+  <meta http-equiv="content-type"
+ content="text/html; charset=ISO-8859-1">
+</head>
+<body bgcolor="#FFFFFF">
+<p align="center"><font size="+3">OpenCapture Object - Error Codes</font></p>
+<p><u>Error Codes provided by Last Error expression</u></p>
+<ul>
+<li>[00] No Error.<br>Default status.</li>
+<li>[01] Capture is already started.<br>The capture is already started with the specified device Id.</li>
+<li>[02] Encountered problem by displaying camera image.<br>The camera image cannot be displayed. Try to set the size of the OpenCapture object to the default size of the camera settings.</li>
+<li>[03] Cannot start tracking color, color id is invalid.<br>Check that the color id is 1, 2 or 3 in MMF2 code.</li>
+<li>[04] Cannot stop tracking color, color id is invalid.<br>Check that the color id is 1, 2 or 3 in MMF2 code.</li>
+<li>[05] Cannot create video with the specified fps.<br>The video file cannot be created. Try to change fps to 25 or codec id to -1 to check that the options used are supported by this system.</li>
+<li>[06] Cannot create video with the specified codec id.<br> The video file cannot be created. Check in MMF2 code that the codec id is available in the codec list (see <b>Actions</b> page).</li>
+<li>[07] Track color: Cannot find color on image.<br>The algorithm does not succeed to find the defined color. </li>
+<li>[08] Encountered problem by changing camera device.<br>Try to change device with id -1 to check if there is a capture device available on this system.</li>
+<li>[09] Save Image Error:<br>Check that the path is valid or that the image extension is supported  (see <b>Actions</b> page).</li>
+<li>[10] Encounter problem by getting HSV color on current frame.<br>Check that the position provided in MMF2 code is not outside the OpenCapture object surface.</li>
+<li>[11] Encounter problem by getting RGB color on current frame.<br>Check that the position provided in MMF2 code is not outside the OpenCapture object surface.</li>
+<li>[12] ColorPosX: Cannot get color pos X, color id is invalid.<br>Check that the color id is 1 or 2 in MMF2 code.</li>
+<li>[13] ColorPosX: Cannot get color pos X, color id is invalid.<br>Check that the color id is 1 or 2 in MMF2 code.</li>
+<li>[14] Error loading classifier.<br>Check that the filename or format of the file are correct. It should be XML or YAML.</li>
+<li>[15] Color is already tracked.<br>The defined color is already tracked.</li>
+<li>[16] Object is already tracked.<br>The object defined by loading classifier file is already tracked.</li>
+<li>[17] Feature is already tracked.<br>The feature tracking is already started.</li>
+<li>[18] Cannot get feature corner position, invalid index.<br>The index is invalid, it must be between 1 and 4.</li>
+<li>[19] Cannot change resolution, camera device is not opened.<br>The camera device must be opened to change the resolution.</li>
+<li>[20] An error occured by changing the camera resolution.<br>Check that this feature and this resolution are supported by the device.</li>
+<li>[21] An error occured by setting the preview size.<br>Check that the size is valid.</li>
+<li>[22] An error occured by setting the camera property.<br>Check that the property name and the property value are valid.</li>
+<li>[23] QR Code is already tracked.<br>The decoding is already started and does not need to be started again.</li>
+</ul>
+</body>
+</html>

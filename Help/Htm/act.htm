@@ -1,0 +1,200 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <title>OpenCapture Object - Actions</title>
+  <meta http-equiv="content-type"
+ content="text/html; charset=ISO-8859-1">
+</head>
+<body bgcolor="#FFFFFF">
+<p align="center"><font size="+3">OpenCapture Object - Actions</font></p>
+<p><font size="+1"><u><b>Capture/Preview menu</b></u></font></p>
+<p><b>Choose Device</b> </p>
+<p>Choose the capture device to use. Takes 1 argument: device Id which defines the index of the capture device. It is based on 0 for the first device and should be less than the number of devices (see Expressions). If the device Id is set to -1, the first available capture device will be used. If the device Id is bigger than the available devices, it will use the last enumerated capture device.</p>
+<p><b>Start Capture</b> </p>
+<p>Start capturing images from the selected capture device. This action does not draw anything on the screen, <b>[Start Preview]</b> action should be called afterwards to display the preview. It can this way track colors or save video stream without taking rendering ressources to draw something on the screen</p>
+<p><b>Stop Capture</b> </p>
+<p>Stop the capture on the current capture device.</p>
+<p><b>Start Preview</b> </p>
+<p>Start displaying the camera image (preview) on the selected capture device.</p>
+<p><b>Stop Preview  </b> </p>
+<p>Stop the preview on the current capture device.</p>
+<p><b>Note:</b> the actions <b>[Choose Device]</b>, <b>[Start Capture]</b> and <b>[Start Preview]</b> are independent. In other words, calling one of them won't automatically trigger the other ones but the status is saved. For example, calling <b>[Start Preview]</b> before <b>[Start Capture]</b> won't display anything on the screen but it is not needed to call it again once the <b>[Start Capture]</b> action is called.</p>
+<p><font size="+1"><u><b>Properties menu</b></u></font></p>
+<p><b>Mirror Image</b> </p>
+<p>Mirror the camera image. Mirroring image will not stop any active tracking.</p>
+<p><b>Set orientation</b> </p>
+<p>Define the orientation of the camera (horizontal or vertical). 
+This action takes 1 argument:<br>
+<ul>
+<li>Orientation type: 0=Horizontal, 1=Vertical.</li>
+</ul>
+</p>
+<p><b>Set Resolution</b> </p>
+<p>If supported by the camera, the resolution is set to the defined width and height.<br>
+This action takes 2 arguments:<br>
+<ul>
+<li>Width: width resolution in pixels.</li>
+<li>Height: height resolution in pixels.</li>
+</ul>
+</p>
+<p><b>Set Size</b> </p>
+<p>Set th object size in the scene to the defined width and height.<br>
+This action takes 2 arguments:<br>
+<ul>
+<li>Width: width in pixels.</li>
+<li>Height: height in pixels.</li>
+</ul>
+</p>
+<p><b>Set camera property</b></p>
+<p>Set a camera property to the defined value. The following properties can be changed directly:
+<ul>
+<li>FPS</li>
+<li>BRIGHTNESS</li>
+<li>CONTRAST</li>
+<li>HUE</li>
+<li>SATURATION</li>
+<li>SHARPNESS</li>
+<li>GAMMA</li>
+<li>MONOCROME</li>
+<li>GAMMA</li>
+<li>WHITE_BALANCE_BLUE_U</li>
+<li>BACKLIGHT</li>
+<li>GAIN</li>
+</ul>
+Some properties might not be available for your camera or the value set might not be in a valid range. Check the available properties and values by using property name "ALL" on this action to open the property page</p>
+This action takes 2 arguments:
+<ul>
+<li>Property name: property name from the list above.</li>
+<li>Property value: value to be set for the property</li>
+</ul>
+<p><font size="+1"><u><b>Track Color menu</b></u></font></p>
+<p><b>Set  tracking color range in HSV</b> </p>
+<p>Set color range for the object to track.<br>
+This action takes 7 arguments:<br>
+<ul>
+<li>Color Id: 2 colors can be tracked. Set 1 for first color and 2 for the second one. The 2 colors should be different otherwise the second object  would not be recognized.</li>
+<li>the 3 next parameters are to define the lower range of the color.</li>
+<li>the 3 last parameters are to define the upper range of the color.</li>
+</ul>
+</p>
+Note that the colors are in HSV format (Hue, Saturation, Value) to be less sensitive to the illumination of your object than the standard RGB format. OpenCv is using a specific HSV colorspace where Hue is between 0 and 179, Saturation between 0 and 255 and Value between 0 and 255. If you don't know those values for your object, use the <b>[Get HSV color from positions]</b> expression to get them.
+<p><img src="Images/hsvColorCylinder.png" width="197" height="148"></p>
+<p><b>Start  tracking color</b> </p>
+<p>Start tracking the selected color.<br>
+This action takes 1 argument:<br>
+<ul>
+<li>Color Id: choose which color you want to track. Set 1 for first color, 2 for the second one or 3 to start tracking both colors.</li>
+</ul>
+</p>
+<p><b>Stop  tracking color</b> </p>
+<p>Stop tracking the selected color.<br>
+This action takes 1 argument:<br>
+<ul>
+<li>Color Id: choose which color you want to track. Set 1 for first color, 2 for the second one or 3 to stop tracking both colors.</li>
+</ul>
+</p>
+<p><font size="+1"><u><b>Save to file menu</b></u></font></p>
+<p><b>Save current frame to file</b> </p>
+<p>Save the current frame to an image file. The following file formats are supported:
+<ul>
+<li>Windows bitmaps - BMP, DIB </li>
+<li>JPEG files - JPEG, JPG, JPE</li>
+<li>Portable Network Graphics - PNG</li>
+<li>Portable image format - PBM, PGM, PPM</li>
+<li>Sun rasters - SR, RAS</li>
+<li>TIFF files - TIFF, TIF</li>
+</ul>
+This action takes 1 argument:
+<ul>
+<li>Filename Path: path and filename of the saved image.</li>
+</ul>
+Note that the file format used to save is automatically defined by the specified file format in the filename path.
+</p>
+<p><b>Save raw frame at resolution to file</b> </p>
+<p>Save the raw frame from the camera at current resolution to an image file. The same file formats as [Save current frame to file] are supported.
+This action takes 1 argument:
+<ul>
+<li>Filename Path: path and filename of the saved image.</li>
+</ul>
+Note that the mirror action has no effect on this image.
+</p>
+<p><b>Start saving video stream to file</b></p>
+<p>Start saving the video stream to a  video file.<br>
+This action takes 3 arguments:
+<ul>
+<li>Filename Path: path and filename of the video file.</li>
+<li>Frame rate: frame rate in frame per second.</li>
+<li>Codec Id: id of the codec to be used by saving. The following options are supported:
+<ul>
+<li>-1: let the user choose the codecs.</li>
+<li>0: uncompressed AVI file. The filename must have a .avi extension.</li>
+<li>1: MPEG-1codec.</li>
+<li>2: MPEG4 codec.</li>
+<li>3: MPEG-4.2 codec.</li>
+<li>3: H264 codec.</li>
+<li>3: CYUV codec.</li>
+</ul>
+</li>
+</ul>
+Note that calling this function if a video saving is currently ongoing will stop automatically the current video saving and create a new video file.
+</p>
+<p><b>Stop saving video stream to file</b></p>
+<p>Stop saving the video stream to a  video file. If this function is not called before end of teh application, the video file will automatically saved and closed.</p>
+<p><font size="+1"><u><b>Miscellaneous menu</b></u></font></p>
+<p><b>Set Background Color</b></p>
+<p>Set the background color to the defined color. It will be displayed if Preview or/and Capture are disabled</p>
+This action takes 1 argument:
+<ul>
+<li>Background Color: color.</li>
+</ul>
+<p><font size="+1"><u><b>Track object menu</b></u></font></p>
+<p><b>Load object classifier</b></p>
+<p>Load from a classifier file (XML or YAML) an object description to track it on the camera image. It is typically a face as it is used in example file.
+<br/>In order to generate a file from known objects, see Opencv documentation. The training of objects requires a large amount of datas and time. This feature is not included in this extension and should be performed separately.</p>
+This action takes 1 argument:
+<ul>
+<li>Filename: path and filename of the classifier file.</li>
+</ul>
+<p><b>Start tracking object</b></p>
+<p>Start tracking the object defined by the  <b>[Load object classifier]</b>  action described above.
+<br/>Only the biggest object found will be saved (positions and size). The position and the size of the object found can be displayed with an ellipse on the image for debug.</p>
+<p><b>Stop tracking object</b></p>
+<p>Stop tracking the object defined by the  <b>[Load object classifier]</b>  action described above.
+<p><font size="+1"><u><b>Track feature menu</b></u></font></p>
+<p><b>Load feature object</b></p>
+<p>Load from an image file the feature to track on the camera image.
+This action takes 1 argument:
+<ul>
+<li>Filename: path and filename of the feature object file.</li>
+</ul>
+<p><b>Start tracking feature</b></p>
+<p>Start tracking the feature object defined by the  <b>[Load feature object]</b>  action described above.
+<br/>Only one feature object can be detected (4 corner positions). If you need to track several features, switch between them with <b>[Load feature object]</b>  action. The position and the size of the object found can be displayed with a green polygon on the image for debug.</p>
+<p><b>Stop tracking feature</b></p>
+<p>Stop tracking the object defined by the  <b>[Load feature object]</b>  action described above.
+<p><font size="+1"><u><b>Track barcode menu</b></u></font></p>
+<p>Note: this feature is working best with autofocus camera. Without autofocus, QR code can be still detected but with a low detectionr rate. 2D barcodes are almost never detected.
+In order to allow users with non autofocus camera to use this feature, some image enhancement are provided: auto detection and image sharpening. For autofocus camera these enhancements are not necessary. <b>Sharpening can only be used when auto detection is activated.</b></p>
+<p>The following barcodes are supported:</p>
+<ul>
+<li>1D product: UPC-A, UPC-E, EAN-8, EAN-13</li>
+<li>1D industrial: Code 39, Code 93, Code 128, Codabar, ITF</li>
+<li>2D industrial: QR Code, Data Matrix, Aztec, PDF 417</li>
+</ul>
+<p><b>Start tracking barcode</b></p>
+<p>Start tracking a barcode object. 
+<br/>The algorithms is optimised to detect only one barcode object.</p>
+<p><b>Stop tracking barcode</b></p>
+<p>Stop tracking the barcode object.</p>
+<p><b>Enable auto detection</b></p>
+<p>Enable the auto detection of the barcode. The algorithm will look on the whole image to detect where exactly is placed the barcode and will forward this ROI to the decoding algorithm.
+This enhancement is not necessary for autofocus camera. </p>
+<p><b>Disable auto detection</b></p>
+<p>Disable auto detection and use the whole image for the decoding.</p>
+<p><b>Enable sharpening</b></p>
+<p>Enable the sharpening of the input image. The algorithm will sharpen the image to get better result when decoding the barcode.
+This enhancement is not necessary for autofocus camera.  <b>Sharpening can only be used when auto detection is activated.</b></p>
+<p><b>Disable sharpening</b></p>
+<p>Disable sharpening of the input image.</p>
+</body>
+</html>
