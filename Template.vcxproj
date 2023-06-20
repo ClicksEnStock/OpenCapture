@@ -248,6 +248,7 @@
   <ItemGroup>
     <ClCompile Include="Actions.cpp" />
     <ClCompile Include="CameraCalibration.cpp" />
+    <ClCompile Include="CameraEnumerator.cpp" />
     <ClCompile Include="CameraThreads.cpp" />
     <ClCompile Include="Conditions.cpp" />
     <ClCompile Include="Edittime.cpp">
@@ -299,6 +300,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CameraCalibration.hpp" />
+    <ClInclude Include="CameraEnumerator.h" />
     <ClInclude Include="Common.h" />
     <ClInclude Include="Extension.h" />
     <ClInclude Include="fast_mutex.h" />

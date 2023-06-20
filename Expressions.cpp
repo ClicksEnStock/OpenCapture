@@ -65,22 +65,6 @@ int Extension::ColorElementHSVOnPos(int posX, int posY, int index)
 	}
 }
 
-//int Extension::ColorElementHSVOnPos(int posX, int posY, int index)
-//{
-//	try
-//	 {
-//		int r,g,b;
-//		r = ColorElementRGBOnPos(posX, posY, 1);
-//		g = ColorElementRGBOnPos(posX, posY, 2);
-//		b = ColorElementRGBOnPos(posX, posY, 3);
-//		return RGB2HSVColor(r,g,b)[index];
-//	}
-//	catch(exception ex)
-//	{
-//		_snprintf_s(lastError, _countof(lastError),ERRORSIZE,"[10] Encounter problem by getting HSV color on current frame (%s)",ex.what());
-//	}
-//}
-
 int Extension::ColorElementRGBOnPos(int posX, int posY, int index)
 {
 	 try
@@ -190,4 +174,21 @@ TCHAR * Extension::QRCode()
 	_tcscpy(QRCodeTemp, QRCodeText);
 	_snwprintf_s(QRCodeText, _countof(QRCodeText), 1024, _T(""));
 	return  QRCodeTemp;
+}
+
+const TCHAR* Extension::CameraName(int deviceId)
+{
+	if (deviceId >= 0 && deviceId < cameraList.size())
+	{
+		return  cameraList[deviceId].deviceName;
+	}
+	else
+	{
+		return _T("");
+	}
+}
+
+int Extension::NumberOfAvailableCameras()
+{
+	return cameraList.size();
 }

@@ -1,8 +1,8 @@
 {
     "About": {
-        "Name": "Open Capture v1.21",
+        "Name": "Open Capture v1.3",
         "Author": "ConceptGame",
-        "Copyright": "Copyright (C) 2014 ConceptGame",
+        "Copyright": "Copyright (C) 2023 ConceptGame",
         "Comment": "Process video capture images",
         "URL": "none",
         "Help": "Help/OpenCapture.chm",
@@ -15,7 +15,8 @@
 			[1,"Start Capture"],
 			[2,"Stop Capture"],
 			[3,"Start Preview"],
-			[4,"Stop Preview"]
+			[4,"Stop Preview"],
+			[30,"Enumerate cameras"]
 		],
 		["Properties",
             [18,"Mirror Image"],
@@ -72,6 +73,10 @@
     "ExpressionMenu": [
 		"Separator",
 		[0,"Last Error"],
+		["Cameras",
+			[15,"Get camera name from Id"],
+			[16,"Get number of available cameras"]
+		],
 		["Track Color",
 			[1,"Get Color Position X from Id"],
 			[2,"Get Color Position Y from Id"],
@@ -239,6 +244,9 @@
 			"Parameters": [
                 ["Integer","Orientation type (0=Horizontal, 1=Vertical"]
 			]
+        },
+		{
+            "Title": "Enumerate cameras"
         }
     ],
 	"Conditions": [
@@ -332,8 +340,7 @@
             "Returns": "Integer"
 		},
 		{   "Title": "FeatureCornerPosX(",
-            "Returns": "Integer",
-            
+            "Returns": "Integer",         
             "Parameters":
             [
                 ["Integer", "Corner Index (1 to 4)"]
@@ -350,7 +357,18 @@
 		{
             "Title": "BarcodeText$(",
             "Returns": "Text"
-        }
+        },
+				{
+            "Title": "CameraName$(",
+            "Returns": "Text",
+			"Parameters":
+            [
+                ["Integer", "Camera Index"]
+            ]
+        },
+		{   "Title": "NumberOfCameras(",
+            "Returns": "Integer"
+		}
     ]
     
 }

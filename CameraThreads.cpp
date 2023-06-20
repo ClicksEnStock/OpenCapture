@@ -1000,9 +1000,12 @@ void		Extension::SetVideoWriter(TCHAR* filename,int codec, int fps)
 	UINT codePage = CP_ACP;
 	lg = WideCharToMultiByte(codePage, 0, filename, -1, NULL, 0, NULL, NULL);
 	ps = (LPSTR)malloc(lg*sizeof(char));
-	WideCharToMultiByte(codePage, 0, filename, -1, ps, lg, NULL, NULL);
-	videoW = VideoWriter(ps, codec, fps, cv::Size(originalImage.cols, originalImage.rows), 1);
-	free(ps);
+	if (ps != NULL)
+	{
+		WideCharToMultiByte(codePage, 0, filename, -1, ps, lg, NULL, NULL);
+		videoW = VideoWriter(ps, codec, fps, cv::Size(originalImage.cols, originalImage.rows), 1);
+		free(ps);
+	}
 }
 void		Extension::SetChangeDevice(bool status)
 {

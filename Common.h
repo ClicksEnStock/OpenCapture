@@ -12,6 +12,7 @@
 #include <windows.h>
 #include "atlstr.h"
 #include "opencv2/opencv.hpp"
+#include <CameraEnumerator.h>
 
 //ZXing
 #include "ReadBarcode.h"

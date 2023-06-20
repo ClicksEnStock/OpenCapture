@@ -42,6 +42,7 @@ Extension::Extension(LPRDATA _rdPtr, LPEDATA edPtr, fpcob cobPtr)
 	LinkAction(27, EnableQRCodeSharpening);
 	LinkAction(28, DisableQRCodeSharpening);
 	LinkAction(29, SetOrientation);
+	LinkAction(30, EnumerateCameras);
 
 	
 	LinkCondition(0, IsDeviceInitializing);
@@ -64,6 +65,9 @@ Extension::Extension(LPRDATA _rdPtr, LPEDATA edPtr, fpcob cobPtr)
 	LinkExpression(12,FeatureCornerPosX);
 	LinkExpression(13,FeatureCornerPosY);
 	LinkExpression(14, QRCode);
+	LinkExpression(15, CameraName);
+	LinkExpression(16, NumberOfAvailableCameras);
+
     /*
         This is where you'd do anything you'd do in CreateRunObject in the original SDK
 
@@ -117,6 +121,7 @@ Extension::Extension(LPRDATA _rdPtr, LPEDATA edPtr, fpcob cobPtr)
 	matcher=NULL;
 	orientation = 0;
 
+	cameraList = camEnum.getVideoDevicesMap();
 	/*HRSRC res = FindResource (hInstLib, MAKEINTRESOURCE (IDR_CAMERA_CLASSIFIER), _T("CAMERA"));
 	storage = cvCreateMemStorage(0);
 	size_t xmlSize = SizeofResource(hInstLib,res);

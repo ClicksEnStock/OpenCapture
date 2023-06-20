@@ -1,5 +1,6 @@
 
 
+
 class Extension
 {
 public:
@@ -85,7 +86,6 @@ public:
 	void SetOriginalImage(Mat image);
 	void FlipOriginalImage();
 	void SwitchIsImageFlipped();
-	void ChangeRotation90(int angle);
 	void SetOriginalImageHSV();
 	void SetOriginalImageGRAY();
 	void SetLastError(const TCHAR* error);
@@ -161,6 +161,8 @@ public:
 	bool isQRCodeTracked;
 	bool isQRCodeAutoDetectionEnabled;
 	bool isQRCodeSharpeningEnabled;
+	CameraEnumerator camEnum;
+	std::map<int, Camera> cameraList;
 			
     /*  Add your actions, conditions and expressions as real class member
         functions here. The arguments (and return type for expressions) must
@@ -201,6 +203,7 @@ public:
 	void DisableQRCodeAutoDetection();
 	void EnableQRCodeSharpening();
 	void DisableQRCodeSharpening();
+	void EnumerateCameras();
 
     /// Conditions
 	bool IsDeviceInitializing();
@@ -225,6 +228,8 @@ public:
 	int FeatureCornerPosX(int cornerIndex);
 	int FeatureCornerPosY(int cornerIndex);
 	TCHAR * QRCode();
+	const TCHAR* CameraName(int deviceId);
+	int NumberOfAvailableCameras();
 		
     /* These are called if there's no function linked to an ID */
 

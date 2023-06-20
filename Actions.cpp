@@ -231,6 +231,11 @@ void Extension::SetOrientation(int type)
 	}
 }
 
+void Extension::EnumerateCameras()
+{
+	cameraList = camEnum.getVideoDevicesMap();
+}
+
 void Extension::SetResolution(int width, int height)
 {
 	if(GetCapture() != NULL)
