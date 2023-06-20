@@ -275,7 +275,7 @@ void Extension::SetCameraProperty(TCHAR* propertyName, float value)
 	SHARPNESS,
 	GAMMA,
 	MONOCROME,
-	WHITE_BALANCE_BLUE_U,
+	WHITE_BALANCE_U,
 	BACKLIGHT,
 	GAIN
 	*/
@@ -339,7 +339,7 @@ void Extension::SetCameraProperty(TCHAR* propertyName, float value)
 		}
 		else if (wcscmp(propertyName, _T("WHITEBALANCE")) == 0)
 		{
-			if (!GetCapture()->set(CV_CAP_PROP_WHITE_BALANCE_BLUE_U, value))
+			if (!GetCapture()->set(CV_CAP_PROP_WHITE_BALANCE_U, value))
 			{
 				SetLastError(ErrorS[setPropertyError]);
 			}
