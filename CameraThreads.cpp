@@ -45,7 +45,7 @@ void CaptureThread(LPVOID lpParam)
 					ps = (LPSTR)malloc(lg*sizeof(char));
 					WideCharToMultiByte(codePage, 0, ext->GetRawImagePath(), -1, ps, lg, NULL, NULL);
 					imwrite(ps, newRawImage);
-					ext->SetRawImagePath(_T(""));
+					ext->SetRawImagePath((_TCHAR*)(""));
 					free(ps);
 				}
 				if (ext->orientation == 1)//vertical orientation
@@ -110,7 +110,7 @@ void Extension::UpdateOriginalImage(Mat image)
 	{
 		delete rawImageSurface;//delete display surface, it will be recreated with object size
 		rawImageSurface = NULL;
-		originalImage = Mat(Size(rdPtr->rHo.hoImgWidth,rdPtr->rHo.hoImgHeight),CV_MAKETYPE(image.depth(), image.channels()));
+		originalImage = Mat(cv::Size(rdPtr->rHo.hoImgWidth,rdPtr->rHo.hoImgHeight),CV_MAKETYPE(image.depth(), image.channels()));
 	}
 	resize(image,originalImage,originalImage.size(),0,0,INTER_LINEAR);
 
@@ -146,18 +146,19 @@ void Extension::CopyOriginalImageToSurface()
 }
 void Extension::DrawRectangleOnImage(int posX,int posY,int width,int height)
 {
-	Point pt1,pt2;  
+	cv::Point pt1,pt2;  
 	pt1.x = posX-width/2;  
 	pt1.y = posY-height/2;
 	pt2.x = posX+width/2;  
 	pt2.y = posY+height/2; 
-	//Attach bounding rect to blob in orginal video input  
-	rectangle(GetOriginalImage(),pt1,pt2,cvScalar(0, 0, 0, 0),1,8,0 );
+	//Attach bounding rect to blob in orginal video input 
+	cv::Mat img = GetOriginalImage();
+	cv::rectangle(img,pt1,pt2,cvScalar(0, 0, 0, 0),1,8,0 );
 }
 void Extension::DrawEllipseOnImage(Rect faceRect)
 {
 	Point center( faceRect.x + faceRect.width*0.5, faceRect.y + faceRect.height*0.5 );
-	ellipse( originalImage, center, Size( faceRect.width*0.5, faceRect.height*0.5), 0, 0, 360, Scalar( 255, 0, 255 ), 4, 8, 0 );
+	ellipse( originalImage, center, cv::Size( faceRect.width*0.5, faceRect.height*0.5), 0, 0, 360, Scalar( 255, 0, 255 ), 4, 8, 0 );
 }
 // Color Tracking Thread
 void ColorTrackThread(LPVOID lpParam)
@@ -343,7 +344,7 @@ void TrackObjectThread(LPVOID lpParam)
 			{
 				vector<Rect> faces;
 				ext->SetOriginalImageGRAY();
-				ext->GetObjectCascade().detectMultiScale(ext->GetOriginalImageGRAY(), faces, 1.1, 3, CV_HAAR_FIND_BIGGEST_OBJECT, Size(80, 80) );
+				ext->GetObjectCascade().detectMultiScale(ext->GetOriginalImageGRAY(), faces, 1.1, 3, CV_HAAR_FIND_BIGGEST_OBJECT, cv::Size(80, 80) );
 				if(faces.size()>0)
 				{
 					ext->SetObjectPos(0,faces[0].x+faces[0].width*0.5);
@@ -501,20 +502,20 @@ void TrackQRCodeThread(LPVOID lpParam)
 							//imwrite("test6.png", crop);
 							if (ext->GetIsQRCodeSharpened())
 							{
-								GaussianBlur(crop, cropS, Size(0, 0), 3);
+								GaussianBlur(crop, cropS, cv::Size(0, 0), 3);
 								addWeighted(crop, 1.5, cropS, -0.5, 0, cropS);
 								//imwrite("test7.png", cropS);
-								ext->decode_image(&ext->cr, cropS);
+								ext->decode_image(cropS);
 							}
 							else
 							{
-								ext->decode_image(&ext->cr, crop);
+								ext->decode_image(crop);
 							}
 						}
 					}
 					else
 					{
-						ext->decode_image(&ext->cr, image);
+						ext->decode_image(image);
 					}
 				}
 			}
@@ -622,78 +623,40 @@ Rect Extension::DetectBarcodeFromImage(Mat image)
 
 	return cvRect;
 }
-class OpenCVBitmapSource : public LuminanceSource
+
+inline ZXing::ImageView ImageViewFromMat(const cv::Mat& image)
 {
-private:
-	cv::Mat m_pImage;
+	using ZXing::ImageFormat;
 
-public:
-	OpenCVBitmapSource(cv::Mat &image)
-		: LuminanceSource(image.cols, image.rows)
-	{
-		m_pImage = image.clone();
+	auto fmt = ImageFormat::None;
+	switch (image.channels()) {
+	case 1: fmt = ImageFormat::Lum; break;
+	case 3: fmt = ImageFormat::BGR; break;
+	case 4: fmt = ImageFormat::BGRX; break;
 	}
 
-	~OpenCVBitmapSource(){}
+	if (image.depth() != CV_8U || fmt == ImageFormat::None)
+		return { nullptr, 0, 0, ImageFormat::None };
 
-	int getWidth() const { return m_pImage.cols; }
-	int getHeight() const { return m_pImage.rows; }
+	return { image.data, image.cols, image.rows, fmt };
+}
 
-	ArrayRef<char> getRow(int y, ArrayRef<char> row) const //See Zxing Array.h for ArrayRef def
-	{
-		int width_ = getWidth();
-		if (!row)
-			row = ArrayRef<char>(width_);
-		const char *p = m_pImage.ptr<char>(y);
-		for (int x = 0; x<width_; ++x, ++p)
-			row[x] = *p;
-		return row;
-	}
+inline ZXing::Result ReadBarcode(const cv::Mat& image, const ZXing::DecodeHints& hints = {})
+{
+	return ZXing::ReadBarcode(ImageViewFromMat(image), hints);
+}
 
-	ArrayRef<char> getMatrix() const
-	{
-		int width_ = getWidth();
-		int height_ = getHeight();
-		ArrayRef<char> matrix = ArrayRef<char>(width_*height_);
-		for (int y = 0; y < height_; ++y)
-		{
-			const char *p = m_pImage.ptr<char>(y);
-			int yoffset = y*width_;
-			for (int x = 0; x < width_; ++x, ++p)
-			{
-				matrix[yoffset + x] = *p;
-			}
-		}
-		return matrix;
-	}
-	
-	// The following methods are not supported by this demo (the DataMatrix Reader doesn't call these methods)
-	//bool isCropSupported() const { return true; }
-	/*Ref<LuminanceSource> crop(int left, int top, int width, int height) 
-	{
-		Rect r(left, top, width, height);
-		Mat out = m_pImage(r);
-		Ref<OpenCVBitmapSource> source;
-		source = new OpenCVBitmapSource(out);
-		return source;
-	}*/
-	//bool isRotateSupported() const { return false; }
-	//Ref<LuminanceSource> rotateCounterClockwise() {}
-};
-void Extension::decode_image(Reader *reader, Mat &image)
+void Extension::decode_image(Mat &image)
 {
 	try
 	{
-		Ref<OpenCVBitmapSource> source(new OpenCVBitmapSource(image));
-		Ref<Binarizer> binarizer(new GlobalHistogramBinarizer(source));
-		Ref<BinaryBitmap> bitmap(new BinaryBitmap(binarizer));
-		Ref<Result> result(reader->decode(bitmap, DecodeHints(DecodeHints::TRYHARDER_HINT)));//+DecodeHints::DEFAULT_HINT)));
-		CA2T out(result->getText()->getText().c_str());
+		ZXing::Result result = ReadBarcode(image);//DecodeHints(DecodeHints::TRYHARDER_HINT)
+		CA2T out(result.text().c_str());
 		SetQRCodeText(out);
 	}
-	catch (zxing::Exception& e)
+	catch (ZXing::Error& e)
 	{
-		string str = e.what();
+		string str = e.msg();
 	}
 }
 
@@ -735,10 +698,11 @@ void Extension::DrawFeatureOnImage()
 {
 	if (featureObjectCorners.size() == 4)
 	{
-		line(GetOriginalImage(), GetFeatureCorner(0), GetFeatureCorner(1), Scalar(0, 255, 0), 2); //TOP line
-		line(GetOriginalImage(), GetFeatureCorner(1), GetFeatureCorner(2), Scalar(0, 255, 0), 2);
-		line(GetOriginalImage(), GetFeatureCorner(2), GetFeatureCorner(3), Scalar(0, 255, 0), 2);
-		line(GetOriginalImage(), GetFeatureCorner(3), GetFeatureCorner(0), Scalar(0, 255, 0), 2);
+		cv::Mat img = GetOriginalImage();
+		line(img, GetFeatureCorner(0), GetFeatureCorner(1), Scalar(0, 255, 0), 2); //TOP line
+		line(img, GetFeatureCorner(1), GetFeatureCorner(2), Scalar(0, 255, 0), 2);
+		line(img, GetFeatureCorner(2), GetFeatureCorner(3), Scalar(0, 255, 0), 2);
+		line(img, GetFeatureCorner(3), GetFeatureCorner(0), Scalar(0, 255, 0), 2);
 	}
 }
 
@@ -1037,7 +1001,7 @@ void		Extension::SetVideoWriter(TCHAR* filename,int codec, int fps)
 	lg = WideCharToMultiByte(codePage, 0, filename, -1, NULL, 0, NULL, NULL);
 	ps = (LPSTR)malloc(lg*sizeof(char));
 	WideCharToMultiByte(codePage, 0, filename, -1, ps, lg, NULL, NULL);
-	videoW = VideoWriter(ps, codec, fps, Size(originalImage.cols, originalImage.rows), 1);
+	videoW = VideoWriter(ps, codec, fps, cv::Size(originalImage.cols, originalImage.rows), 1);
 	free(ps);
 }
 void		Extension::SetChangeDevice(bool status)
@@ -1060,7 +1024,7 @@ void		Extension::SetOriginalImage(Mat image)
 	lock_guard<fast_mutex> lock(cameraMutex);
 	if(originalImage.empty() || originalImage.cols!=rdPtr->rHo.hoImgWidth || originalImage.rows!=rdPtr->rHo.hoImgHeight)
 	{
-		originalImage = Mat(Size(rdPtr->rHo.hoImgWidth,rdPtr->rHo.hoImgHeight),CV_MAKETYPE(image.depth(), image.channels()));
+		originalImage = Mat(cv::Size(rdPtr->rHo.hoImgWidth,rdPtr->rHo.hoImgHeight),CV_MAKETYPE(image.depth(), image.channels()));
 	}
 	resize(image,originalImage,originalImage.size(),0,0,INTER_LINEAR);
 }
@@ -1110,7 +1074,7 @@ void		Extension::SetOriginalImageGRAY()
 		cvtColor(originalImage, originalImageGRAY, CV_BGR2GRAY);
 	}
 }
-void		Extension::SetLastError(TCHAR* error)
+void		Extension::SetLastError(const TCHAR* error)
 {
 	lock_guard<fast_mutex> lock(cameraMutex);
 	_snwprintf_s(lastError, _countof(lastError), _countof(lastError), error);

@@ -14,17 +14,8 @@
 #include "opencv2/opencv.hpp"
 
 //ZXing
-#include "LuminanceSource.h"
-#include "MultiFormatReader.h"
-#include "oned\OneDReader.h"
-#include "oned\EAN8Reader.h"
-#include "oned\EAN13Reader.h"
-#include "oned\Code128Reader.h"
-#include "datamatrix\DataMatrixReader.h"
-#include "qrcode\QRCodeReader.h"
-#include "aztec\AztecReader.h"
-#include "common\GlobalHistogramBinarizer.h"
-#include "Exception.h"
+#include "ReadBarcode.h"
+#include "Error.h"
 
 //#include <fstream>
 #include <tinythread.h>
@@ -34,10 +25,10 @@
 using namespace tthread;
 using namespace cv;
 using namespace std;
-using namespace zxing;
-using namespace oned;
+using namespace ZXing;
+/*using namespace oned;
 using namespace datamatrix;
-using namespace qrcode;
+using namespace qrcode;*/
 
 #include    "Edif.h"
 #include	"Resource.h"
@@ -70,7 +61,7 @@ enum ErrorN
 	QRCodeAlreadyTracked,
 };
 
-static TCHAR* ErrorS[24] = {
+static const TCHAR* ErrorS[24] = {
 	_T("[00] No Error"),
 	_T("[01] Capture is already started."),
 	_T("[02] Encountered problem by displaying camera image:"),

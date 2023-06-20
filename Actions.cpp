@@ -95,6 +95,7 @@ void Extension::DisableTrackColor(int colorId)
 	}
 }
 
+
 void Extension::SaveImage(TCHAR* filename)
 {
 	try

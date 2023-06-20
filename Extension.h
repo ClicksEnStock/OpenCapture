@@ -38,7 +38,7 @@ public:
 	void DrawFeatureOnImage();
 	int* RGB2HSVColor(int r, int g, int b);
 	Transformation FindPose3D(vector< Point2f > scene_points,vector< Point2f > points2d, CameraCalibration calibration);
-	void decode_image(Reader *reader, Mat &image);
+	void decode_image(Mat &image);
 	Rect DetectBarcodeFromImage(Mat image);
 
 	// Thread Safe Properties
@@ -88,7 +88,7 @@ public:
 	void ChangeRotation90(int angle);
 	void SetOriginalImageHSV();
 	void SetOriginalImageGRAY();
-	void SetLastError(TCHAR* error);
+	void SetLastError(const TCHAR* error);
 	void SetIsColor1Tracked(bool status);
 	void SetIsColor2Tracked(bool status);
 	void SetColorPos(int colorId, int index, int value);
@@ -159,7 +159,6 @@ public:
 	TCHAR QRCodeText[1024];
 	TCHAR QRCodeTemp[1024];
 	bool isQRCodeTracked;
-	MultiFormatReader cr;
 	bool isQRCodeAutoDetectionEnabled;
 	bool isQRCodeSharpeningEnabled;
 			
