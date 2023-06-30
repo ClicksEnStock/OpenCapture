@@ -228,7 +228,7 @@ public:
 	int FeatureCornerPosX(int cornerIndex);
 	int FeatureCornerPosY(int cornerIndex);
 	TCHAR * QRCode();
-	const TCHAR* CameraName(int deviceId);
+	LPCWSTR CameraName(int deviceId);
 	int NumberOfAvailableCameras();
 		
     /* These are called if there's no function linked to an ID */

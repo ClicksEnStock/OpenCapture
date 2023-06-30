@@ -121,7 +121,7 @@ Extension::Extension(LPRDATA _rdPtr, LPEDATA edPtr, fpcob cobPtr)
 	matcher=NULL;
 	orientation = 0;
 
-	cameraList = camEnum.getVideoDevicesMap();
+	cameraList = camEnum.getCameraMap();
 	/*HRSRC res = FindResource (hInstLib, MAKEINTRESOURCE (IDR_CAMERA_CLASSIFIER), _T("CAMERA"));
 	storage = cvCreateMemStorage(0);
 	size_t xmlSize = SizeofResource(hInstLib,res);

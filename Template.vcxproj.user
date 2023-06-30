@@ -2,7 +2,7 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug Unicode|Win32'">
     <LocalDebuggerCommand>C:\Program Files (x86)\Clickteam Fusion Developer 2.5\Data\Runtime\Unicode\edrt.exe</LocalDebuggerCommand>
-    <LocalDebuggerCommandArguments>/f "C:\Temp\MMF2\rt\App0.ccn"</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>/f "C:\temp\rt\App0.ccn"</LocalDebuggerCommandArguments>
     <LocalDebuggerWorkingDirectory>C:\Program Files (x86)\Clickteam Fusion Developer 2.5\</LocalDebuggerWorkingDirectory>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>

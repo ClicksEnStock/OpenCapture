@@ -176,7 +176,7 @@ TCHAR * Extension::QRCode()
 	return  QRCodeTemp;
 }
 
-const TCHAR* Extension::CameraName(int deviceId)
+LPCWSTR Extension::CameraName(int deviceId)
 {
 	if (deviceId >= 0 && deviceId < cameraList.size())
 	{
@@ -184,7 +184,7 @@ const TCHAR* Extension::CameraName(int deviceId)
 	}
 	else
 	{
-		return _T("");
+		return  L"";
 	}
 }
 

@@ -233,7 +233,7 @@ void Extension::SetOrientation(int type)
 
 void Extension::EnumerateCameras()
 {
-	cameraList = camEnum.getVideoDevicesMap();
+	cameraList = camEnum.getCameraMap();
 }
 
 void Extension::SetResolution(int width, int height)

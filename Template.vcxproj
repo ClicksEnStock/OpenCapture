@@ -115,7 +115,7 @@
       <ResourceOutputFileName>$(IntDir)Ext.res</ResourceOutputFileName>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>zlibd.lib;mmfs2.lib;ZXingd.lib;opencv_core2413d.lib;opencv_highgui2413d.lib;opencv_objdetect2413d.lib;opencv_imgproc2413d.lib;opencv_ml2413d.lib;opencv_video2413d.lib;opencv_features2d2413d.lib;opencv_legacy2413d.lib;opencv_flann2413d.lib;opencv_calib3d2413d.lib;libjpegd.lib;libtiffd.lib;libpngd.lib;libjasperd.lib;IlmImfd.lib;comctl32.lib;vfw32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>zlibd.lib;mmfs2.lib;ZXingd.lib;opencv_core2413d.lib;opencv_highgui2413d.lib;opencv_objdetect2413d.lib;opencv_imgproc2413d.lib;opencv_ml2413d.lib;opencv_video2413d.lib;opencv_features2d2413d.lib;opencv_legacy2413d.lib;opencv_flann2413d.lib;opencv_calib3d2413d.lib;libjpegd.lib;libtiffd.lib;libpngd.lib;libjasperd.lib;IlmImfd.lib;comctl32.lib;vfw32.lib;Mfplat.lib;Mf.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>C:\Program Files (x86)\Clickteam Fusion Developer 2.5\Extensions\Unicode\$(ProjectName).mfx</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <ModuleDefinitionFile>.\Ext.def</ModuleDefinitionFile>
@@ -132,7 +132,8 @@
       <OutputFile>$(IntDir)Template.bsc</OutputFile>
     </Bscmake>
     <PostBuildEvent>
-      <Command>..\AutoInstall.bat $(TargetPath) \Extensions\Unicode</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Edittime Unicode|Win32'">
@@ -170,7 +171,7 @@
       <ResourceOutputFileName>$(IntDir)Ext.res</ResourceOutputFileName>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>zlib.lib;mmfs2.lib;ZXing.lib;opencv_core2413.lib;opencv_imgproc2413.lib;opencv_highgui2413.lib;opencv_ml2413.lib;opencv_video2413.lib;opencv_features2d2413.lib;opencv_objdetect2413.lib;opencv_legacy2413.lib;opencv_flann2413.lib;opencv_calib3d2413.lib;libjpeg.lib;libtiff.lib;libpng.lib;libjasper.lib;IlmImf.lib;comctl32.lib;advapi32.lib;vfw32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>zlib.lib;mmfs2.lib;ZXing.lib;opencv_core2413.lib;opencv_imgproc2413.lib;opencv_highgui2413.lib;opencv_ml2413.lib;opencv_video2413.lib;opencv_features2d2413.lib;opencv_objdetect2413.lib;opencv_legacy2413.lib;opencv_flann2413.lib;opencv_calib3d2413.lib;libjpeg.lib;libtiff.lib;libpng.lib;libjasper.lib;IlmImf.lib;comctl32.lib;advapi32.lib;vfw32.lib;Mfplat.lib;Mf.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(ProjectDir)\MFX\Extensions\Unicode\$(ProjectName).mfx</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
@@ -187,7 +188,8 @@
       <OutputFile>$(IntDir)Template.bsc</OutputFile>
     </Bscmake>
     <PostBuildEvent>
-      <Command>..\AutoInstall.bat $(TargetPath) \Extensions\Unicode</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Runtime Unicode|Win32'">
@@ -225,7 +227,7 @@
       <ResourceOutputFileName>$(IntDir)Ext.res</ResourceOutputFileName>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>zlib.lib;mmfs2.lib;ZXing.lib;opencv_core2413.lib;opencv_imgproc2413.lib;opencv_highgui2413.lib;opencv_ml2413.lib;opencv_video2413.lib;opencv_features2d2413.lib;opencv_objdetect2413.lib;opencv_legacy2413.lib;opencv_flann2413.lib;opencv_calib3d2413.lib;libjpeg.lib;libtiff.lib;libpng.lib;libjasper.lib;IlmImf.lib;comctl32.lib;advapi32.lib;vfw32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>zlib.lib;mmfs2.lib;ZXing.lib;opencv_core2413.lib;opencv_imgproc2413.lib;opencv_highgui2413.lib;opencv_ml2413.lib;opencv_video2413.lib;opencv_features2d2413.lib;opencv_objdetect2413.lib;opencv_legacy2413.lib;opencv_flann2413.lib;opencv_calib3d2413.lib;libjpeg.lib;libtiff.lib;libpng.lib;libjasper.lib;IlmImf.lib;comctl32.lib;advapi32.lib;vfw32.lib;Mfplat.lib;Mf.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(ProjectDir)\MFX\Data\Runtime\Unicode\$(ProjectName).mfx</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
@@ -242,7 +244,7 @@
       <OutputFile>$(IntDir)Template.bsc</OutputFile>
     </Bscmake>
     <PostBuildEvent>
-      <Command>..\AutoInstall.bat $(TargetPath) \Data\Runtime\Unicode</Command>
+      <Command>..\AutoInstall.bat $(ProjectDir)MFX</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
